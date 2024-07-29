@@ -1,3 +1,9 @@
+<?php
+
+include 'backend/config/database.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,8 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Datatable</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,20 +21,40 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Developer Datatable</h1>
-
-                <table id="example" class="display nowrap" style="width:100%">
+                <table id="monthlystafftable" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Country</th>
-                            <th>City</th>
                             <th>Number</th>
-                            <th>Designation</th>
                             <th>Stack</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Salary</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Data will be inserted here dynamically -->
+                        <?php
+
+                        $sql = "SELECT * FROM developers";
+                        $result = mysqli_query($connection, $sql);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) {
+
+                                ?>
+                                <tr>
+                                    <td><?php echo $row["name"]; ?></td>
+                                    <td><?php echo $row["phone"]; ?></td>
+                                    <td><?php echo $row["stack"]; ?></td>
+                                    <td><?php echo $row["city"]; ?></td>
+                                    <td><?php echo $row["country"]; ?></td>
+                                    <td><?php echo $row["salary"]; ?></td>
+                                </tr>
+
+                                <?php
+                            }
+                        }
+                        ?>
                     </tbody>
                 </table>
 
@@ -47,22 +72,8 @@
         crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                ajax: {
-                    url: '', // Replace with your API endpoint
-                    dataSrc: '' // Assuming the API response is an array of developers
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'country' },
-                    { data: 'city' },
-                    { data: 'number' },
-                    { data: 'designation' },
-                    { data: 'stack' }
-                ],
-                scrollX: true
-            });
+        new DataTable('#monthlystafftable', {
+            scrollX: true
         });
     </script>
 </body>
