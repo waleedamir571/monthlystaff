@@ -47,22 +47,8 @@
         crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                ajax: {
-                    url: '', // Replace with your API endpoint
-                    dataSrc: '' // Assuming the API response is an array of developers
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'country' },
-                    { data: 'city' },
-                    { data: 'number' },
-                    { data: 'designation' },
-                    { data: 'stack' }
-                ],
-                scrollX: true
-            });
+        new DataTable('#example', {
+            scrollX: true
         });
     </script>
 </body>
