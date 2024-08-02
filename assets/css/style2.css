@@ -18,7 +18,7 @@ body {
 }
 
 .btn:hover {
-    color: black;
+    color: black !important;
     background-color: transparent !important;
     border-color: var(--bs-btn-hover-border-color);
 }
