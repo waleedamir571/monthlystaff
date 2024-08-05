@@ -176,7 +176,7 @@ body {
 
 @media (min-width: 320px) and (max-width:480px){
     .heading {
-        font-size: 23px;
+        font-size: 21px;
         font-weight: 700;
         line-height: 39px;
         /* letter-spacing: -2.240000009536743px; */

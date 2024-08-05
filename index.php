@@ -53,7 +53,7 @@ include 'backend/config/database.php';
                 </ul>
                 <div class="inline-grid">
                     <a class="btn btn-primary me-2 m-b2" href="#">Get hired</a>
-                    <a class="btn btn-primary" href="#">Hire now</a>
+                    <a class="btn btn-primary" href="register">Register</a>
                 </div>
             </div>
         </div>
@@ -77,32 +77,33 @@ include 'backend/config/database.php';
     <div class="container">
         <div class="row">
             <?php
-
             $sql = "SELECT * FROM developers";
-            $result = mysqli_query($connection, $sql);
+            $result = $connection->query($sql);
 
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_array($result)) {
-
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
                     ?>
                     <div class="col-md-3">
                         <div class="developer-card inter">
-                            <p>$<?php echo $row["salary"]; ?> | <?php echo $row["experience"]; ?> Years</p>
-                            <img src="assets/img/<?php echo $row["images"]; ?>" alt="<?php echo $row["name"]; ?>">
-                            <h5 class=""><?php echo $row["name"]; ?></h5>
-                            <p><?php echo $row["stack"]; ?></p>
-                            <p><?php echo $row["city"]; ?></p>
+                            <p>$<?php echo htmlspecialchars($row["salary"]); ?> pm | <?php echo htmlspecialchars($row["experience"]); ?> Years</p>
+                            <img src="assets/img/<?php echo htmlspecialchars($row["images"]); ?>" alt="<?php echo htmlspecialchars($row["name"]); ?>">
+                            <h5 class=""><?php echo htmlspecialchars($row["name"]); ?></h5>
+                            <p><?php echo htmlspecialchars($row["stack"]); ?></p>
+                            <p><?php echo htmlspecialchars($row["city"]); ?></p>
                             <div class="rating">
                                 <span>★★★★★</span>
                             </div>
-                            <a href="https://api.whatsapp.com/send/?phone=<?php echo $row["phone"]; ?>&text=HELLO&app_absent=0"
+                            <a href="https://api.whatsapp.com/send/?phone=<?php echo htmlspecialchars($row["phone"]); ?>&text=HELLO&app_absent=0"
                                 class="whatsapp-btn"><img class="w-30" src="assets/img/WhatsApp.png" alt=""> WhatsApp Me</a>
                         </div>
                     </div>
-
-                <?php
+                    <?php
                 }
+            } else {
+                echo "No records found.";
             }
+
+            $connection->close();
             ?>
         </div>
     </div>
