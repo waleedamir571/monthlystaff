@@ -4,4 +4,4 @@ RewriteEngine On
 # Hide .php extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(register|index|login)$ $1.php [L]
+RewriteRule ^(register|index|admin786)$ $1.php [L]

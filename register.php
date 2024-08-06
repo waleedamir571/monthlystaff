@@ -6,6 +6,20 @@ include 'partials/header.php';
 
 ?>
 
+<style>
+    @media (min-width: 320px) and (max-width:480px){
+  
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 118vh;
+    }
+
+    
+}
+</style>
+
 
 <body>
     <section class="container">

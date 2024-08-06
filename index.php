@@ -75,38 +75,41 @@ include 'backend/config/database.php';
     </div>
 
     <div class="container">
-        <div class="row">
-            <?php
-            $sql = "SELECT * FROM developers";
-            $result = $connection->query($sql);
+    <div class="row">
+      <?php
+    //   include('db_connection.php');
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    ?>
-                    <div class="col-md-3">
-                        <div class="developer-card inter">
-                            <p>$<?php echo htmlspecialchars($row["salary"]); ?> pm | <?php echo htmlspecialchars($row["experience"]); ?> Years</p>
-                            <img src="assets/img/<?php echo htmlspecialchars($row["images"]); ?>" alt="<?php echo htmlspecialchars($row["name"]); ?>">
-                            <h5 class=""><?php echo htmlspecialchars($row["name"]); ?></h5>
-                            <p><?php echo htmlspecialchars($row["stack"]); ?></p>
-                            <p><?php echo htmlspecialchars($row["city"]); ?></p>
-                            <div class="rating">
-                                <span>★★★★★</span>
-                            </div>
-                            <a href="https://api.whatsapp.com/send/?phone=<?php echo htmlspecialchars($row["phone"]); ?>&text=HELLO&app_absent=0"
-                                class="whatsapp-btn"><img class="w-30" src="assets/img/WhatsApp.png" alt=""> WhatsApp Me</a>
-                        </div>
-                    </div>
-                    <?php
-                }
-            } else {
-                echo "No records found.";
-            }
+      $sql = "SELECT * FROM developers";
+      $result = $connection->query($sql);
 
-            $connection->close();
-            ?>
-        </div>
+      if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+              ?>
+              <div class="col-md-3">
+                  <div class="developer-card">
+                      <p>$<?php echo htmlspecialchars($row["salary"]); ?> pm | <?php echo htmlspecialchars($row["experience"]); ?> Years</p>
+                      <img src="assets/img/<?php echo htmlspecialchars($row["images"]); ?>" alt="<?php echo htmlspecialchars($row["name"]); ?>">
+                      <h5><?php echo htmlspecialchars($row["name"]); ?></h5>
+                      <p><?php echo htmlspecialchars($row["stack"]); ?></p>
+                      <p><?php echo htmlspecialchars($row["city"]); ?></p>
+                      <div class="rating">
+                          <span>★★★★★</span>
+                      </div>
+                      <a href="https://api.whatsapp.com/send/?phone=<?php echo htmlspecialchars($row["phone"]); ?>&text=HELLO&app_absent=0" class="whatsapp-btn">
+                          <img class="w-30" src="assets/img/WhatsApp.png" alt=""> WhatsApp Me
+                      </a>
+                  </div>
+              </div>
+              <?php
+          }
+      } else {
+          echo "No records found.";
+      }
+
+      $connection->close();
+      ?>
     </div>
+  </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
