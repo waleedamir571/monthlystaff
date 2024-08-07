@@ -5,7 +5,7 @@ include 'partials/header.php';
 session_start();
 
 // Define the correct email and password
-$correct_email = 'admin@786@gmail.com';
+$correct_email = 'admin786@gmail.com';
 $correct_password = 'admin786';
 
 // Check if the form is submitted
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['email'] = $email;
 
         // Redirect to admin panel
-        header("Location: admin-panel.php");
+        header("Location: admin-panel");
         exit;
     } else {
         // Invalid credentials, show an error message

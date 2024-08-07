@@ -7,6 +7,7 @@ require_once 'backend/config/database.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel For Monthly Staff</title>
+  <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.bootstrap5.css" />
   <style>
@@ -26,10 +27,11 @@ require_once 'backend/config/database.php';
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      width: 100rem;
+      width: 90%;
       margin-left: auto;
       margin-right: auto;
       display: block;
+      overflow-x: auto;
     }
     table.dataTable th,
     table.dataTable td {
@@ -37,19 +39,27 @@ require_once 'backend/config/database.php';
       vertical-align: middle;
     }
     table.dataTable thead > tr > th.dt-orderable-asc, table.dataTable thead > tr > th.dt-orderable-desc, table.dataTable thead > tr > td.dt-orderable-asc, table.dataTable thead > tr > td.dt-orderable-desc {
-    cursor: pointer;
-    text-align: center;
-}
-
-table.table.dataTable > :not(caption) > * > * {
-    background-color: var(--bs-table-bg);
-    text-align: center;
-}
-
-table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
-    box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.05);
-    text-align: center;
-}
+      cursor: pointer;
+      text-align: center;
+    }
+    table.table.dataTable > :not(caption) > * > * {
+      background-color: var(--bs-table-bg);
+      text-align: center;
+    }
+    table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
+      box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.05);
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .custom-container {
+        overflow-x: auto;
+      }
+      .custom-container table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -68,6 +78,7 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
                 <th>Stack</th>
                 <th>City</th>
                 <th>Number</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -85,13 +96,14 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
                       echo "<td>" . htmlspecialchars($row["stack"]) . "</td>";
                       echo "<td>" . htmlspecialchars($row["city"]) . "</td>";
                       echo "<td>" . htmlspecialchars($row["phone"]) . "</td>";
+                      echo "<td><button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>Delete</button>
+                      <button class='btn btn-info btn-sm delete-btn' data-id='" . $row["id"] . "'>Edit</button>
+                      </td>";
                       echo "</tr>";
                   }
               } else {
-                  echo "<tr><td colspan='7'>No records found.</td></tr>";
+                  echo "<tr><td colspan='8'>No records found.</td></tr>";
               }
-
-              $connection->close();
               ?>
             </tbody>
           </table>
@@ -99,6 +111,8 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
       </div>
     </div>
   </div>
+
+ 
 
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -113,8 +127,27 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
         lengthChange: true,
         pageLength: 10,
         columnDefs: [
-          { width: "14.28%", targets: "_all" }
+          { width: "12.5%", targets: "_all" }
         ]
+      });
+
+      // Delete functionality
+      $('.delete-btn').on('click', function() {
+        const id = $(this).data('id');
+        const row = $(this).closest('tr');
+        
+        $.ajax({
+          url: 'delete.php',
+          type: 'POST',
+          data: { id: id },
+          success: function(response) {
+            if (response === 'success') {
+              row.remove();
+            } else {
+              alert('Failed to delete the record.');
+            }
+          }
+        });
       });
     });
   </script>
