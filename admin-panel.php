@@ -97,7 +97,7 @@ require_once 'backend/config/database.php';
                       echo "<td>" . htmlspecialchars($row["city"]) . "</td>";
                       echo "<td>" . htmlspecialchars($row["phone"]) . "</td>";
                       echo "<td><button class='btn btn-danger btn-sm delete-btn' data-id='" . $row["id"] . "'>Delete</button>
-                      <button class='btn btn-info btn-sm delete-btn' data-id='" . $row["id"] . "'>Edit</button>
+                     <button class='btn btn-info btn-sm edit-btn' data-id='" . $row["id"] . "'>Edit</button>
                       </td>";
                       echo "</tr>";
                   }
@@ -148,6 +148,12 @@ require_once 'backend/config/database.php';
             }
           }
         });
+      });
+
+        // Edit functionality
+        $('.edit-btn').on('click', function() {
+        const id = $(this).data('id');
+        window.location.href = `edit.php?id=${id}`;
       });
     });
   </script>

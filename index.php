@@ -68,14 +68,14 @@ include 'backend/config/database.php';
                     <p class="inter">Connect directly with top-tier Pakistani developers with exceptional skills, honest
                         pricing, and real and unfiltered reviews.
                         ZERO fees for both the company and developer.</p>
-                    <button class="btn btn-primary">Hire now</button>
+                   <a href="#hire-now"> <button class="btn btn-primary" id="">Hire now</button></a>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="container">
+    <div class="container" >
     <div class="row">
       <?php
     //   include('db_connection.php');
@@ -86,7 +86,7 @@ include 'backend/config/database.php';
       if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
               ?>
-              <div class="col-md-3">
+              <div class="col-md-3" id="hire-now">
                   <div class="developer-card">
                       <p>$<?php echo htmlspecialchars($row["salary"]); ?> pm | <?php echo htmlspecialchars($row["experience"]); ?> Years</p>
                       <img src="assets/img/<?php echo htmlspecialchars($row["images"]); ?>" alt="<?php echo htmlspecialchars($row["name"]); ?>">
