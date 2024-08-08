@@ -18,7 +18,7 @@ body {
 }
 
 .btn:hover {
-    color: black;
+    color: black !important;
     background-color: transparent !important;
     border-color: var(--bs-btn-hover-border-color);
 }
@@ -176,12 +176,14 @@ body {
 
 @media (min-width: 320px) and (max-width:480px){
     .heading {
-        font-size: 23px;
+        font-size: 21px;
         font-weight: 700;
         line-height: 39px;
         /* letter-spacing: -2.240000009536743px; */
         text-align: center;
     }
+
+   
 
     .header p {
         font-size: 19px;
