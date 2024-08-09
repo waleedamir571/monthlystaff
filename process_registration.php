@@ -47,6 +47,8 @@ function validate_salary($salary) {
     return null;
 }
 
+
+
 // Validate form inputs
 $errors = [];
 $salary = $_POST['Salary'];
@@ -93,4 +95,46 @@ if (!empty($errors)) {
 }
 
 $connection->close();
+
+
+
+// Collect and sanitize form data
+$salary = $_POST['Salary'];
+$experience = $_POST['Experience'];
+$name = $_POST['Name'];
+$stack = $_POST['Stack'];
+$city = $_POST['City'];
+$number = $_POST['Number'];
+$email = $_POST['Email']; // Ensure you add an email input field in the registration form
+$password = password_hash($_POST['Password'], PASSWORD_DEFAULT); // Securely hash the password
+
+// Handle file upload
+$image = $_FILES['Image']['name'];
+$imageTmpName = $_FILES['Image']['tmp_name'];
+$imagePath = 'assets/img/' . $image;
+
+// Move the uploaded file to the target directory
+if (move_uploaded_file($imageTmpName, $imagePath)) {
+    // Prepare SQL statement
+    $stmt = $connection->prepare("INSERT INTO developers_login (salary, experience, images, name, stack, city, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssss", $salary, $experience, $image, $name, $stack, $city, $number, $email, $password);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "Registration successful!";
+        header("Location: index.php"); // Redirect to the display page
+        exit();
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close statement and connection
+    $stmt->close();
+} else {
+    echo "Error uploading file.";
+}
+
+
 ?>
+
+
